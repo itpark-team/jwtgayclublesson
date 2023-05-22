@@ -1,5 +1,6 @@
 package com.example.jwtgayclublesson.config;
 
+import com.example.jwtgayclublesson.filter.CorsFilter;
 import com.example.jwtgayclublesson.filter.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -19,12 +20,12 @@ public class SecurityConfiguration {
 
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
-    //private final SimpleCORSFilter simpleCORSFilter;
+    private final CorsFilter corsFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                //.addFilterBefore(simpleCORSFilter, SessionManagementFilter.class)
+                .addFilterBefore(corsFilter, SessionManagementFilter.class)
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
